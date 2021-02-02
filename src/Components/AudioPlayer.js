@@ -1,4 +1,5 @@
 import { commands } from "../globals";
+import { useState } from "react";
 
 const FancyBtn = ({ onClick, ...props }) => (
   <button className="bg-green-400 p-3 rounded mr-3 last:mr-0" onClick={onClick}>
@@ -24,7 +25,9 @@ const RewindBtn = ({ setCommand }) => (
   <FancyBtn onClick={() => setCommand(commands.rewind)}>Rewind</FancyBtn>
 );
 
-const AudioPlayer = ({ command, setCommand }) => {
+const AudioPlayer = () => {
+  const [command, setCommand] = useState(commands.stop);
+
   return (
     <div className="flex flex-col bg-red-400 m-auto flex-1">
       <span>{command}</span>
