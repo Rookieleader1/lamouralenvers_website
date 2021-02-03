@@ -17,7 +17,7 @@ const FancyBtn = ({ onClick, isOn, ...props }) => {
 };
 
 const PlayBtn = ({ handleClick, isOn }) => (
-  <FancyBtn onClick={handleClick} isOn={isOn}>
+  <FancyBtn onClickCapture={handleClick} isOn={isOn}>
     play
   </FancyBtn>
 );
@@ -48,13 +48,11 @@ const Controls = ({ setPlaying, playing }) => (
   </div>
 );
 
-function SongInfos({ playingTrack }) {
-  return (
-    <div className="flex flex-1 bg-blue-400 p-3 rounded items-center justify-center">
-      <span className="text-2xl">{playingTrack?.name}</span>
-    </div>
-  );
-}
+const SongInfos = ({ playingTrack }) => (
+  <div className="flex flex-1 bg-blue-400 p-3 rounded items-center justify-center">
+    <span className="text-2xl">{playingTrack?.name}</span>
+  </div>
+);
 
 const AudioPlayer = () => {
   const [playingTrack, setPlayingTrack] = useState(playlist[0]);
