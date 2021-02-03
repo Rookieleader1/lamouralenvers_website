@@ -17,7 +17,7 @@ const FancyBtn = ({ onClick, isOn, ...props }) => {
 };
 
 const PlayBtn = ({ handleClick, isOn }) => (
-  <FancyBtn onClickCapture={handleClick} isOn={isOn}>
+  <FancyBtn onClick={handleClick} isOn={isOn}>
     play
   </FancyBtn>
 );
@@ -60,7 +60,7 @@ const AudioPlayer = () => {
 
   return (
     <div className="flex flex-col bg-red-400 m-auto h-screen">
-      <audio id="audio" src={playingTrack?.url} />
+      <audio id="audio" src={playingTrack?.url} autoPlay={false} />
       <SongInfos playingTrack={playingTrack} />
       <Controls setPlaying={setPlaying} playing={playing} />
       <Playlist setPlayingTrack={setPlayingTrack} />
