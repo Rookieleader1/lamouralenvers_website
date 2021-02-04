@@ -5,7 +5,6 @@ function useAudioPlayer() {
   const [curTime, setCurTime] = useState();
   const [playing, setPlaying] = useState(false);
   const [clickedTime, setClickedTime] = useState();
-  const [canPlay, setCanPlay] = useState(false);
 
   useEffect(() => {
     const audio = document.getElementById("audio");
@@ -22,20 +21,8 @@ function useAudioPlayer() {
 
     audio.addEventListener("timeupdate", setAudioTime);
 
-    // audio.addEventListener("canplay", () => setCanPlay(true));
-
-    const playAudio = async () => {
-      try {
-        await audio.play();
-        setCanPlay(true);
-      } catch (e) {
-        console.error({ e });
-        setCanPlay(false);
-      }
-    };
-
     // React state listeners: update DOM on React state changes
-    playing ? playAudio() : audio.pause();
+    playing ? audio.play() : audio.pause();
 
     if (clickedTime && clickedTime !== curTime) {
       audio.currentTime = clickedTime;
@@ -51,11 +38,11 @@ function useAudioPlayer() {
 
   return {
     curTime,
+    setCurTime,
     duration,
     playing,
     setPlaying,
     setClickedTime,
-    canPlay,
   };
 }
 

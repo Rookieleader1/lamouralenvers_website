@@ -1,4 +1,4 @@
-import { playlist } from "../globals";
+import { commands, playlist } from "../globals";
 import { useEffect, useState } from "react";
 import { Playlist } from "./Playlist";
 import useAudioPlayer from "../hooks/useAudioPlayer";
@@ -12,7 +12,9 @@ const SongInfos = ({ playingTrack }) => (
 
 const AudioPlayer = () => {
   const [playingTrack, setPlayingTrack] = useState();
-  const { playing, setPlaying } = useAudioPlayer();
+  const [command, setCommand] = useState(commands.stop);
+
+  const { playing, setPlaying, setCurTime } = useAudioPlayer();
 
   return (
     <div className="flex flex-col justify-around m-auto">
@@ -23,8 +25,14 @@ const AudioPlayer = () => {
         setPlayingTrack={setPlayingTrack}
         playingTrack={playingTrack}
         playing={playing}
+        command={command}
+        setCommand={setCommand}
       />
-      <Playlist setPlayingTrack={setPlayingTrack} />
+      <Playlist
+        setPlayingTrack={setPlayingTrack}
+        setPlaying={setPlaying}
+        setCommand={setCommand}
+      />
     </div>
   );
 };
