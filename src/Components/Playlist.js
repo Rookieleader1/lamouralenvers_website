@@ -10,7 +10,7 @@ const Track = ({ track, setPlayingTrack }) => (
 );
 
 export const Playlist = ({ setPlayingTrack }) => (
-  <div className="flex flex-1 flex-col justify-center items-center p-3 bg-yellow-300">
+  <div className="flex flex-col justify-center items-center p-3 bg-yellow-300">
     {playlist.map((track, index) => (
       <Track
         key={index}

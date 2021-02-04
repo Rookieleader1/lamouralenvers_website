@@ -22,10 +22,20 @@ function useAudioPlayer() {
 
     audio.addEventListener("timeupdate", setAudioTime);
 
-    audio.addEventListener("canplay", () => setCanPlay(true));
+    // audio.addEventListener("canplay", () => setCanPlay(true));
+
+    const playAudio = async () => {
+      try {
+        await audio.play();
+        setCanPlay(true);
+      } catch (e) {
+        console.error({ e });
+        setCanPlay(false);
+      }
+    };
 
     // React state listeners: update DOM on React state changes
-    playing ? audio.play() : audio.pause();
+    playing ? playAudio() : audio.pause();
 
     if (clickedTime && clickedTime !== curTime) {
       audio.currentTime = clickedTime;
