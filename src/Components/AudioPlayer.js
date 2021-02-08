@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Playlist } from "./Playlist";
 import useAudioPlayer from "../hooks/useAudioPlayer";
 import { Controls } from "./Controls";
+import K7 from "./K7/K7";
 
 const SongInfos = ({ playingTrack }) => (
   <div className="flex bg-blue-400 p-3 rounded items-center justify-center">
@@ -17,8 +18,9 @@ const AudioPlayer = () => {
   const { playing, setPlaying, setCurTime } = useAudioPlayer();
 
   return (
-    <div className="flex flex-col justify-around m-auto">
+    <div className="flex flex-col justify-around bg-green-500">
       <audio id="audio" src={playingTrack?.url} />
+      <K7 playing={playing} command={command} />
       <SongInfos playingTrack={playingTrack} />
       <Controls
         setPlaying={setPlaying}
