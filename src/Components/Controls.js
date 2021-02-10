@@ -1,38 +1,44 @@
+import { useEffect, useState, useRef } from "react";
 import { commands, playlist } from "../globals";
 import { tapeFF, tapePause, tapePlay, tapeStop } from "../audio/FX";
-import { useEffect, useState } from "react";
+import ReactPlayer from "react-player";
 
 const FancyBtn = ({ onClick, isOn, soundEffect, name }) => {
-  const [audioPlaying, setAudioPlaying] = useState(false);
-  const audioId = `${name}_audio`;
-  const audio = document.getElementById(audioId);
+  const [audioFxPlaying, setAudioFxPlaying] = useState(false);
+  const audioRef = useRef(undefined);
 
   const handleClick = async () => {
-    setAudioPlaying(true);
+    setAudioFxPlaying(true);
     onClick();
   };
 
   useEffect(() => {
-    if (audio) {
-      if (audioPlaying) {
-        audio.play();
-      } else {
-        audio.currentTime = 0;
-        audio.pause();
-      }
-    }
-  }, [audioPlaying]);
-
-  useEffect(() => {
     //when another button is not pressed, audio should not stop
     if (!isOn) {
-      setAudioPlaying(false);
+      setAudioFxPlaying(false);
     }
   }, [isOn]);
 
+  const resetAudio = () => {
+    // we stop the playing and reset play head to start of file
+    if (audioRef?.current) {
+      setAudioFxPlaying(false);
+      audioRef?.current?.seekTo(0);
+    }
+  };
+
   return (
     <>
-      <audio id={audioId} src={(audioPlaying && soundEffect).toString()} />
+      <ReactPlayer
+        ref={audioRef}
+        url={soundEffect}
+        playing={audioFxPlaying}
+        onPause={resetAudio}
+        onEnded={resetAudio}
+        onError={(e) => console.error(e)}
+        width={0}
+        height={0}
+      />
       <input
         type="button"
         value={name}
@@ -74,9 +80,6 @@ const StopBtn = ({ handleClick, isOn }) => (
 const FastForwardBtn = ({ handleClick, isOn }) => (
   <FancyBtn onClick={handleClick} soundEffect={tapeFF} isOn={isOn} name=">>" />
 );
-// const RewindBtn = ({ setCommand }) => (
-//   <FancyBtn onClick={() => setCommand()}>Rewind</FancyBtn>
-// );
 
 export const Controls = ({
   playing,
@@ -85,12 +88,13 @@ export const Controls = ({
   playingTrack,
   command,
   setCommand,
+  audioPlayerRef,
+  playbackRate,
+  setPlaybackRate,
 }) => {
-  const audio = document.getElementById("audio");
-
   useEffect(() => {
-    if (audio && audio.playbackRate !== 0 && command !== commands.fastForward)
-      audio.playbackRate = 1;
+    if (playbackRate !== 0 && command !== commands.fastForward)
+      setPlaybackRate(1);
 
     switch (command) {
       case commands.play:
@@ -103,10 +107,12 @@ export const Controls = ({
         break;
       case commands.stop:
         if (playing) setPlaying(false);
-        if (audio && audio.currentTime !== 0) audio.currentTime = 0;
+        const currentTime = audioPlayerRef?.current?.getCurrentTime();
+        if (!!currentTime && currentTime !== 0)
+          audioPlayerRef.current.seekTo(0);
         break;
       case commands.fastForward:
-        if (audio) audio.playbackRate = 6;
+        setPlaybackRate(6);
         break;
       default:
         console.log("case not covered by switch");
@@ -131,7 +137,6 @@ export const Controls = ({
         handleClick={() => setCommand(commands.fastForward)}
         isOn={command === commands.fastForward}
       />
-      {/*<RewindBtn setCommand={setCommand} />*/}
     </div>
   );
 };

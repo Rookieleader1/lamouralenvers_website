@@ -3,8 +3,14 @@ import { k7, wheel } from "../../img";
 import "./animation.css";
 import { commands } from "../../globals";
 
-const Wheel = ({ height, offsetTop, offsetLeft, rotationSpeed, command }) => {
-  console.log(rotationSpeed);
+const Wheel = ({
+  height,
+  offsetTop,
+  offsetLeft,
+  rotationSpeed,
+  command,
+  name,
+}) => {
   const commandState = () => {
     if (command === commands.play || command === commands.fastForward)
       return "running";
@@ -14,42 +20,48 @@ const Wheel = ({ height, offsetTop, offsetLeft, rotationSpeed, command }) => {
   return (
     <img
       src={wheel}
-      alt="k7_wheel_left"
+      alt={name}
+      id={name}
       style={{
         objectFit: "contain",
         height: height,
         position: "absolute",
         top: offsetTop,
         left: offsetLeft,
-        animation: `spin ${rotationSpeed}s linear infinite`,
+        animationName: "spin",
+        animationDuration: `${rotationSpeed}s`,
+        animationIterationCount: "infinite",
+        animationTimingFunction: "linear",
         animationPlayState: commandState(),
       }}
     />
   );
 };
 
-const Wheels = ({ height, height1, rotationSpeed, command }) => (
+const Wheels = ({ k7Height, relativeHeight, rotationSpeed, command }) => (
   <div
     style={{
-      height: height,
+      height: k7Height,
       position: "absolute",
       top: 0,
       width: "100%",
     }}
   >
     <Wheel
-      height={height1}
+      height={relativeHeight}
       offsetLeft="23.5%"
       offsetTop="36%"
       rotationSpeed={rotationSpeed}
       command={command}
+      name="k7_wheel_left"
     />
     <Wheel
-      height={height1}
+      height={relativeHeight}
       offsetLeft="64.5%"
       offsetTop="36%"
       rotationSpeed={rotationSpeed}
       command={command}
+      name="k7_wheel_right"
     />
   </div>
 );
@@ -92,8 +104,8 @@ const K7 = ({ playing = false, command }) => {
         }}
       />
       <Wheels
-        height={k7Height}
-        height1={relativeScale}
+        k7Height={k7Height}
+        relativeHeight={relativeScale}
         rotationSpeed={tapeSpeed}
         command={command}
       />

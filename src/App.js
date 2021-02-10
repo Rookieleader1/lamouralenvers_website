@@ -17,7 +17,7 @@ const App = () => {
 
   return (
     <Router>
-      <div className="max-h-screen h-screen bg-red-400 overflow-hidden">
+      <div className="max-h-screen h-screen bg-red-400">
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
