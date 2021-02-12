@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
-import { tapeFF, tapePause, tapePlay, tapeStop } from "../../audio/FX";
+import { tapeFF, tapePause, tapePlay, tapeStop } from "../../assets/audio/FX";
 import {
   playON,
   playOFF,
@@ -12,7 +12,7 @@ import {
   previousOFF,
   nextON,
   nextOFF,
-} from "../../img/buttons";
+} from "../../assets/img/buttons";
 
 const FancyBtn = ({ onClick, isOn, soundEffect, alt, onSkin, offSkin }) => {
   const [audioFxPlaying, setAudioFxPlaying] = useState(false);
@@ -53,7 +53,8 @@ const FancyBtn = ({ onClick, isOn, soundEffect, alt, onSkin, offSkin }) => {
       <button
         // value={name}
         disabled={isOn}
-        className={`w-12 cursor-pointer ${isOn ? "mt-2" : "mt-0 shadow-xl"}`}
+        className={`flex-1 cursor-pointer ${isOn ? "mt-2" : "mt-0 shadow-xl"}`}
+        style={{ maxWidth: 100 }}
         onClick={handleClick}
       >
         <img src={isOn ? onSkin : offSkin} alt={alt} />

@@ -1,4 +1,4 @@
-import { audio1, audio2, audio3, audio4 } from "./audio/tracks";
+import { audio1, audio2, audio3, audio4 } from "./assets/audio/tracks";
 
 const playlist = [
   { url: audio1, name: "JE VOUS AIME" },
@@ -13,5 +13,7 @@ const commands = {
   stop: "STOP",
   fastForward: "FAST_FORWARD",
   rewind: "REWIND",
+  nextTrack: "NEXT_TRACK",
+  previousTrack: "PREVIOUS_TRACK",
 };
 export { playlist, commands };

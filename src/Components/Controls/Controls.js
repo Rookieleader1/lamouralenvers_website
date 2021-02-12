@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { commands, playlist } from "../../globals";
 import {
   FastForwardBtn,
@@ -7,14 +7,14 @@ import {
   PreviousTrackBtn,
   StopBtn,
 } from "./Buttons";
-import { background } from "../../img/buttons";
-import { VolumeButton } from "./VolumeBtn";
+import { background } from "../../assets/img/buttons";
 import { Playlist } from "../Playlist";
+import findIndex from "lodash.findindex";
 
 const TransportButtons = ({ command, setCommand }) => {
   return (
     <div
-      className="flex items-center justify-center p-3"
+      className="flex items-center justify-center p-3 mx-3"
       style={{
         backgroundImage: `url(${background})`,
         backgroundPosition: "center",
@@ -34,8 +34,14 @@ const TransportButtons = ({ command, setCommand }) => {
         handleClick={() => setCommand(commands.stop)}
         isOn={command === commands.stop}
       />
-      <PreviousTrackBtn handleClick={() => console.log("prev")} isOn={false} />
-      <NextTrackBtn handleClick={() => console.log("prev")} isOn={false} />
+      <PreviousTrackBtn
+        handleClick={() => setCommand(commands.previousTrack)}
+        isOn={command === commands.previousTrack}
+      />
+      <NextTrackBtn
+        handleClick={() => setCommand(commands.nextTrack)}
+        isOn={command === commands.nextTrack}
+      />
     </div>
   );
 };
@@ -50,9 +56,15 @@ export const Controls = ({
   audioPlayerRef,
   playbackRate,
   setPlaybackRate,
-  volume,
-  setVolume,
 }) => {
+  const [currentTrackIndex, setCurrentTrackIndex] = useState();
+
+  useEffect(() => {
+    setCurrentTrackIndex(
+      findIndex(playlist, (o) => o.name === playingTrack.name)
+    );
+  }, [playingTrack]);
+
   useEffect(() => {
     if (playbackRate !== 0 && command !== commands.fastForward)
       setPlaybackRate(1);
@@ -75,6 +87,30 @@ export const Controls = ({
       case commands.fastForward:
         setPlaybackRate(6);
         break;
+      case commands.previousTrack: {
+        // if current track is the first in playlist, we just restart it
+        const prevTrackIndex =
+          currentTrackIndex === 0 ? 0 : currentTrackIndex - 1;
+
+        setPlayingTrack(playlist[prevTrackIndex]);
+        // we reset the track
+        audioPlayerRef.current.seekTo(0);
+        // we set a timeout to let the button be on for a while
+        setTimeout(() => setCommand(commands.play), 100);
+        break;
+      }
+      case commands.nextTrack: {
+        // if the current track is the last in playlist, we go back to the start
+        const nextTrackIndex =
+          currentTrackIndex === playlist.length - 1 ? 0 : currentTrackIndex + 1;
+
+        setPlayingTrack(playlist[nextTrackIndex]);
+        // we reset the track
+        audioPlayerRef.current.seekTo(0);
+        // we set a timeout to let the button be on for a while
+        setTimeout(() => setCommand(commands.play), 100);
+        break;
+      }
       default:
         console.log("case not covered by switch");
     }
@@ -82,14 +118,15 @@ export const Controls = ({
 
   return (
     <div className="flex flex-col mt-3 justify-center items-center">
-      <div className="flex justify-center items-center">
-        <TransportButtons command={command} setCommand={setCommand} />
-        <div className="ml-3">
-          <VolumeButton setVolume={setVolume} volume={volume} />
-        </div>
-      </div>
+      <TransportButtons
+        command={command}
+        setCommand={setCommand}
+        setPlayingTrack={setPlayingTrack}
+        playingTrack={playingTrack}
+      />
       <Playlist
         setPlayingTrack={setPlayingTrack}
+        playingTrack={playingTrack}
         setPlaying={setPlaying}
         setCommand={setCommand}
       />

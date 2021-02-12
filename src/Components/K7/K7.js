@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import { k7, wheel } from "../../img";
+import { k7, wheel } from "../../assets/img";
 import "./animation.css";
 import { commands } from "../../globals";
 
@@ -66,7 +66,7 @@ const Wheels = ({ k7Height, relativeHeight, rotationSpeed, command }) => (
   </div>
 );
 
-const K7 = ({ playing = false, command }) => {
+const K7 = ({ command }) => {
   const [k7Height, setK7Height] = useState(0);
   const [relativeScale, setRelativeScale] = useState(0);
   const [tapeSpeed, setTapeSpeed] = useState(1);
