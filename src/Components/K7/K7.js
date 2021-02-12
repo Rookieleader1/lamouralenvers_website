@@ -85,14 +85,14 @@ const K7 = ({ playing = false, command }) => {
   }, [k7ref, k7ref.current, k7Height]);
 
   useEffect(() => {
-    // set the tapespeed regarding which command is active
+    // set the tape speed regarding which command is active
     if (tapeSpeed !== 1 && command === commands.play) setTapeSpeed(1);
     else if (tapeSpeed !== 3 && command === commands.fastForward)
       setTapeSpeed(0.3);
   }, [tapeSpeed, command]);
 
   return (
-    <div style={{ height: 200 }} className="bg-yellow-300 relative m-auto">
+    <div style={{ width: "90%", maxWidth: 500 }} className="relative m-auto">
       <img
         src={k7}
         ref={k7ref}
