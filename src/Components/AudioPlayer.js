@@ -70,6 +70,7 @@ const AudioPlayer = () => {
   const [command, setCommand] = useState(commands.stop);
   const [playing, setPlaying] = useState(false);
   const [playbackRate, setPlaybackRate] = useState(1);
+  const [progressPercent, setProgressPercent] = useState(0);
   const audioPlayerRef = useRef(undefined);
 
   return (
@@ -81,10 +82,11 @@ const AudioPlayer = () => {
         ref={audioPlayerRef}
         onError={(e) => console.error(e)}
         playbackRate={playbackRate}
+        onProgress={(e) => setProgressPercent(e.played * 100)}
         width={0}
         height={0}
       />
-      <K7 playing={playing} command={command} />
+      <K7 command={command} progressPercent={progressPercent} />
       <Controls
         setPlaying={setPlaying}
         setPlayingTrack={setPlayingTrack}
