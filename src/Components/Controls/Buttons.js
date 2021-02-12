@@ -53,7 +53,7 @@ const FancyBtn = ({ onClick, isOn, soundEffect, alt, onSkin, offSkin }) => {
       <button
         // value={name}
         disabled={isOn}
-        className="w-24 cursor-pointer"
+        className={`w-12 cursor-pointer ${isOn ? "mt-2" : "mt-0 shadow-xl"}`}
         onClick={handleClick}
       >
         <img src={isOn ? onSkin : offSkin} alt={alt} />

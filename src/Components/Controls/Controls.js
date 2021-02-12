@@ -9,6 +9,36 @@ import {
 } from "./Buttons";
 import { background } from "../../img/buttons";
 import { VolumeButton } from "./VolumeBtn";
+import { Playlist } from "../Playlist";
+
+const TransportButtons = ({ command, setCommand }) => {
+  return (
+    <div
+      className="flex items-center justify-center p-3"
+      style={{
+        backgroundImage: `url(${background})`,
+        backgroundPosition: "center",
+        backgroundSize: "contain",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      <PlayBtn
+        handleClick={() => setCommand(commands.play)}
+        isOn={command === commands.play}
+      />
+      <FastForwardBtn
+        handleClick={() => setCommand(commands.fastForward)}
+        isOn={command === commands.fastForward}
+      />
+      <StopBtn
+        handleClick={() => setCommand(commands.stop)}
+        isOn={command === commands.stop}
+      />
+      <PreviousTrackBtn handleClick={() => console.log("prev")} isOn={false} />
+      <NextTrackBtn handleClick={() => console.log("prev")} isOn={false} />
+    </div>
+  );
+};
 
 export const Controls = ({
   playing,
@@ -51,35 +81,18 @@ export const Controls = ({
   }, [command, audioPlayerRef, playbackRate, playing, playingTrack]);
 
   return (
-    <div
-      className="bg-green-500 flex items-center justify-center mt-3"
-      style={{
-        height: 100,
-        backgroundImage: `url(${background})`,
-        backgroundPosition: "center",
-        backgroundSize: "contain",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      <PlayBtn
-        handleClick={() => setCommand(commands.play)}
-        isOn={command === commands.play}
+    <div className="flex flex-col mt-3 justify-center items-center">
+      <div className="flex justify-center items-center">
+        <TransportButtons command={command} setCommand={setCommand} />
+        <div className="ml-3">
+          <VolumeButton setVolume={setVolume} volume={volume} />
+        </div>
+      </div>
+      <Playlist
+        setPlayingTrack={setPlayingTrack}
+        setPlaying={setPlaying}
+        setCommand={setCommand}
       />
-      {/*<PauseBtn*/}
-      {/*  handleClick={() => setCommand(commands.pause)}*/}
-      {/*  isOn={command === commands.pause}*/}
-      {/*/>*/}
-      <FastForwardBtn
-        handleClick={() => setCommand(commands.fastForward)}
-        isOn={command === commands.fastForward}
-      />
-      <StopBtn
-        handleClick={() => setCommand(commands.stop)}
-        isOn={command === commands.stop}
-      />
-      <PreviousTrackBtn handleClick={() => console.log("prev")} isOn={false} />
-      <NextTrackBtn handleClick={() => console.log("prev")} isOn={false} />
-      <VolumeButton volume={volume} setVolume={setVolume} />
     </div>
   );
 };

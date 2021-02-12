@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
 import { commands, playlist } from "../globals";
-import { Playlist } from "./Playlist";
 import ReactPlayer from "react-player";
 import { Controls } from "./Controls/Controls";
 import K7 from "./K7/K7";
@@ -53,7 +52,7 @@ const AudioPlayer = () => {
         ref={audioPlayerRef}
         onError={(e) => console.error(e)}
         playbackRate={playbackRate}
-        // volume={volume}
+        volume={volume / 100}
         width={0}
         height={0}
       />
@@ -70,11 +69,6 @@ const AudioPlayer = () => {
         setPlaybackRate={setPlaybackRate}
         volume={volume}
         setVolume={setVolume}
-      />
-      <Playlist
-        setPlayingTrack={setPlayingTrack}
-        setPlaying={setPlaying}
-        setCommand={setCommand}
       />
     </div>
   );
