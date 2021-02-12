@@ -6,9 +6,9 @@ export const VolumeButton = ({ volume, setVolume, ...rest }) => {
   return (
     <Knob
       onChange={handleOnChange}
-      // unlockDistance={0}
+      unlockDistance={0}
       rotateDegrees={120}
-      precisionMode={false}
+      preciseMode={false}
       {...rest}
     />
   );
