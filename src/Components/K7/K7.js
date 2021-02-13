@@ -17,6 +17,7 @@ const Wheel = ({
       return "running";
     return "paused";
   };
+  if (!height || height === 0) return null;
   return (
     <>
       <div
