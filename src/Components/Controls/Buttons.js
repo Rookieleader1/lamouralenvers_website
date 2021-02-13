@@ -51,10 +51,9 @@ const FancyBtn = ({ onClick, isOn, soundEffect, alt, onSkin, offSkin }) => {
         height={0}
       />
       <button
-        // value={name}
         disabled={isOn}
-        className={`flex-1 cursor-pointer ${isOn ? "mt-2" : "mt-0 shadow-xl"}`}
-        style={{ maxWidth: 100 }}
+        className={`flex-1 cursor-pointer ${isOn ? "" : "shadow-xl"}`}
+        style={{ maxWidth: 80 }}
         onClick={handleClick}
       >
         <img src={isOn ? onSkin : offSkin} alt={alt} />

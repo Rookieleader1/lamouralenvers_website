@@ -17,21 +17,27 @@ const Wheel = ({
       return "running";
     return "paused";
   };
-
   return (
     <>
-      {/*<div*/}
-      {/*  className="rounded-full bg-black"*/}
-      {/*  style={{*/}
-      {/*    maxHeight: 150,*/}
-      {/*    height: `${progressPercent}%`,*/}
-      {/*    maxWidth: 150,*/}
-      {/*    width: `${progressPercent}%`,*/}
-      {/*    position: "absolute",*/}
-      {/*    // top: offsetTop,*/}
-      {/*    // left: offsetLeft,*/}
-      {/*  }}*/}
-      {/*/>*/}
+      <div
+        className="absolute flex justify-center items-center"
+        style={{
+          top: "45%",
+          left: offsetLeft,
+          height: 150,
+          width: 150,
+          transform: "translateY(-50%) translateX(-35%)",
+        }}
+      >
+        <div
+          className="bg-black rounded-full overflow-hidden "
+          style={{
+            height: `${progressPercent}%`,
+            width: `${progressPercent}%`,
+            // ,
+          }}
+        />
+      </div>
       <img
         src={wheel}
         alt={name}
@@ -75,7 +81,7 @@ const Wheels = ({
       rotationSpeed={rotationSpeed}
       command={command}
       name="k7_wheel_left"
-      progressPercent={progressPercent}
+      progressPercent={100 - progressPercent}
     />
     <Wheel
       height={relativeHeight}
@@ -84,7 +90,7 @@ const Wheels = ({
       rotationSpeed={rotationSpeed}
       command={command}
       name="k7_wheel_right"
-      progressPercent={100 - progressPercent}
+      progressPercent={progressPercent}
     />
   </div>
 );
@@ -116,6 +122,13 @@ const K7 = ({ command, progressPercent }) => {
 
   return (
     <div style={{ width: "90%", maxWidth: 500 }} className="relative m-auto">
+      <Wheels
+        k7Height={k7Height}
+        relativeHeight={relativeScale}
+        rotationSpeed={tapeSpeed}
+        command={command}
+        progressPercent={progressPercent}
+      />
       <img
         src={k7}
         ref={k7ref}
@@ -124,14 +137,9 @@ const K7 = ({ command, progressPercent }) => {
           objectFit: "contain",
           maxHeight: "100%",
           maxWidth: "100%",
+          position: "relative",
+          zIndex: 10,
         }}
-      />
-      <Wheels
-        k7Height={k7Height}
-        relativeHeight={relativeScale}
-        rotationSpeed={tapeSpeed}
-        command={command}
-        progressPercent={progressPercent}
       />
     </div>
   );

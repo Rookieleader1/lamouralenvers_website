@@ -4,6 +4,7 @@ import ReactPlayer from "react-player";
 import { Controls } from "./Controls/Controls";
 import K7 from "./K7/K7";
 import heartLogo from "../assets/img/heart.png";
+import DownloadButton from "./DllButton";
 
 const MainLogo = () => (
   <img
@@ -17,9 +18,10 @@ const MainLogo = () => (
 const Header = () => (
   <header className="flex flex-col justify-center items-center min-w-full px-3">
     <MainLogo />
-    <div>
-      <h1 className="text-3xl font-extrabold">L'AMOUR À L'ENDROIT</h1>
-      <div className="flex flex-col items-end text-sm font-medium">
+    <h1 className="text-3xl font-extrabold mb-6">L'AMOUR À L'ENDROIT</h1>
+    <div className="flex">
+      <DownloadButton />
+      <div className="flex flex-col items-end text-sm font-medium ml-3">
         <p>
           SMD{" "}
           <span className="text-xs font-normal">(Sans Maison de Disque)</span>
