@@ -7,6 +7,7 @@ const customStyle = {
   },
   content: {
     height: "50%",
+    maxWidth: "550px",
     margin: "auto",
     backgroundColor: "#FFF",
     display: "flex",
