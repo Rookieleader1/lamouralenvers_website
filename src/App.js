@@ -1,6 +1,7 @@
 import "./style/output.css";
 import AudioPlayer from "./Components/AudioPlayer";
 import React from "react";
+import ReactDOM from "react-dom";
 import {
   BrowserRouter as Router,
   Switch,

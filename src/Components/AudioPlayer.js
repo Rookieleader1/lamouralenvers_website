@@ -1,10 +1,11 @@
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
 import { commands, playlist } from "../globals";
 import ReactPlayer from "react-player";
 import { Controls } from "./Controls/Controls";
 import K7 from "./K7/K7";
 import heartLogo from "../assets/img/heart.png";
 import DownloadButton from "./DllButton";
+import StartModal from "./StartModal";
 
 const MainLogo = () => (
   <img
@@ -68,6 +69,7 @@ const Footer = () => (
 );
 
 const AudioPlayer = () => {
+  const [modalIsOpen, setModalIsOpen] = useState(true);
   const [playingTrack, setPlayingTrack] = useState(playlist[0]);
   const [command, setCommand] = useState(commands.stop);
   const [playing, setPlaying] = useState(false);
@@ -77,6 +79,7 @@ const AudioPlayer = () => {
 
   return (
     <div className="flex flex-col justify-around">
+      <StartModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
       <Header />
       <ReactPlayer
         playing={playing}
