@@ -79,7 +79,11 @@ const AudioPlayer = () => {
 
   return (
     <div className="flex flex-col justify-around">
-      <StartModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
+      <StartModal
+        modalIsOpen={modalIsOpen}
+        setModalIsOpen={setModalIsOpen}
+        onClickCb={() => setCommand(commands.play)}
+      />
       <Header />
       <ReactPlayer
         playing={playing}
