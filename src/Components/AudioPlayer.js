@@ -45,7 +45,7 @@ const Footer = () => (
   >
     <p>
       Déjà plus d'un an que la terre s'est arrêté de tourner, que le monde se
-      polarise et se replie sur lui même.
+      polarise et se replie sur lui-même.
     </p>
     <p className="mb-3">ALORS SI ON SE DONNAIT UN PEU DE LOVE?</p>
     <p>
@@ -58,7 +58,7 @@ const Footer = () => (
       Laissez-vous surprendre par L'AMOUR A L'ENDROIT.
     </p>
     <p>
-      A vous de jouer: un conseil, une idée,{" "}
+      À vous de jouer: un conseil, une idée,{" "}
       <span className="font-medium">
         UN MANAGEMENT, UN LABEL, DU PUBLISHING,
       </span>{" "}

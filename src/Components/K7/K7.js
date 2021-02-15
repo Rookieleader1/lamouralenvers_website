@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { k7, wheel } from "../../assets/img";
 import "./animation.css";
 import { commands } from "../../globals";
+import useResizeObserver from "use-resize-observer";
 
 const Wheel = ({
   height,
@@ -97,22 +98,19 @@ const Wheels = ({
 );
 
 const K7 = ({ command, progressPercent }) => {
-  const [k7Height, setK7Height] = useState(0);
   const [relativeScale, setRelativeScale] = useState(0);
   const [tapeSpeed, setTapeSpeed] = useState(1);
   const k7ref = useRef();
+  const { height = 1 } = useResizeObserver({ ref: k7ref });
 
   const calculateRelativeScale = (naturalHeight, currentHeight) => {
     // given natural height and current height, return shrinkage in percent
     setRelativeScale((currentHeight / naturalHeight) * 100);
   };
 
-  useEffect(() => {
-    if (k7Height !== k7ref.current.height) setK7Height(k7ref.current.height);
-    if (k7ref?.current) {
-      calculateRelativeScale(k7ref.current.naturalHeight, k7Height);
-    }
-  }, [k7ref, k7ref.current, k7Height]);
+  useEffect(() => calculateRelativeScale(k7ref.current.naturalHeight, height), [
+    height,
+  ]);
 
   useEffect(() => {
     // set the tape speed regarding which command is active
@@ -124,7 +122,7 @@ const K7 = ({ command, progressPercent }) => {
   return (
     <div style={{ width: "90%", maxWidth: 500 }} className="relative m-auto">
       <Wheels
-        k7Height={k7Height}
+        k7Height={height}
         relativeHeight={relativeScale}
         rotationSpeed={tapeSpeed}
         command={command}
