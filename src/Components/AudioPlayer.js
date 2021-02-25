@@ -17,7 +17,7 @@ const MainLogo = () => (
 );
 
 const Header = () => (
-  <header className="flex flex-col justify-center items-center min-w-full px-3 bg-blue-100">
+  <header className="flex flex-col justify-center items-center min-w-full px-3">
     <MainLogo />
     <div>
       <h1 className="text-3xl font-extrabold mb-6">L'AMOUR À L'ENDROIT</h1>
@@ -33,7 +33,7 @@ const Header = () => (
         </div>
       </div>
     </div>
-    <p className="text-center my-3 text-xs">
+    <p className="text-center my-3 text-sm">
       Quand le rap passe à l'âge adulte <br />
       cela donne un album aussi décalé qu'une K7 en 2021!
     </p>
@@ -55,18 +55,22 @@ const Footer = () => (
       d'auteurs à l'eau de rose. Je propose de remettre l'essentiel au centre du
       Rapjeu.
     </p>
-    <p className="mb-3">
-      Dans un monde qui marche sur la tête, même l'amour est à l'envers.
-      Laissez-vous surprendre par L'AMOUR A L'ENDROIT.
-    </p>
     <p>
-      À vous de jouer: un conseil, une idée,{" "}
-      <span className="font-medium">
-        UN MANAGEMENT, UN LABEL, DU PUBLISHING,
-      </span>{" "}
+      Dans un monde qui marche sur la tête, même l'amour est à l'envers.
+      Laissez-vous surprendre par
+    </p>
+    <p className="my-3">L'AMOUR A L'ENDROIT.</p>
+    <p>À vous de jouer: un conseil, une idée, </p>
+    <p className="font-medium">UN MANAGEMENT, UN LABEL, DU PUBLISHING,</p>
+    <p>
       votre beau frère est Pascal Nègre ou juste l'envie qu'on partage ensemble
       un Raiders ...
     </p>
+    <div className="mt-6 hover:bg-blue-300 rounded p-1">
+      <a href="https://www.youtube.com/c/JAMESDELLECKAMOUR">
+        Pour en savoir plus sur l'artiste, c'est par ici
+      </a>
+    </div>
   </section>
 );
 

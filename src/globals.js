@@ -3,6 +3,7 @@ import {
   audio1,
   audio10,
   audio11,
+  audio12,
   audio2,
   audio3,
   audio4,
@@ -26,6 +27,7 @@ const playlist = [
   { url: audio9, name: "DANSER" },
   { url: audio10, name: "SANS NOTICE" },
   { url: audio11, name: "LES CONTRE JOURS" },
+  { url: audio12, name: "SON" },
 ];
 
 const commands = {

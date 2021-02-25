@@ -31,8 +31,8 @@ const TransportButtons = ({ command, setCommand }) => {
         isOn={command === commands.fastForward}
       />
       <StopBtn
-        handleClick={() => setCommand(commands.stop)}
-        isOn={command === commands.stop}
+        handleClick={() => setCommand(commands.pause)}
+        isOn={command === commands.pause} //This being pause instead of stop is weird but it is what is asked for
       />
       <PreviousTrackBtn
         handleClick={() => setCommand(commands.previousTrack)}
@@ -71,9 +71,10 @@ export const Controls = ({
 
     switch (command) {
       case commands.play:
+        console.log("play");
         //if no track is currently playing, set the track to the first one
         if (!playingTrack) setPlayingTrack(playlist[0]);
-        if (!playing) setPlaying(true);
+        setPlaying(true);
         break;
       case commands.pause:
         if (playing) setPlaying(false);

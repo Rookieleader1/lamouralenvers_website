@@ -14,8 +14,9 @@ const Wheel = ({
   progressPercent,
 }) => {
   const commandState = () => {
-    if (command === commands.play || command === commands.fastForward)
+    if (command === commands.play || command === commands.fastForward) {
       return "running";
+    }
     return "paused";
   };
   if (!height || height === 0) return null;
@@ -36,7 +37,6 @@ const Wheel = ({
           style={{
             height: `${progressPercent}%`,
             width: `${progressPercent}%`,
-            // ,
           }}
         />
       </div>
