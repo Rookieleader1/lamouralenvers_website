@@ -17,18 +17,20 @@ const MainLogo = () => (
 );
 
 const Header = () => (
-  <header className="flex flex-col justify-center items-center min-w-full px-3">
+  <header className="flex flex-col justify-center items-center min-w-full px-3 bg-blue-100">
     <MainLogo />
-    <h1 className="text-3xl font-extrabold mb-6">L'AMOUR À L'ENDROIT</h1>
-    <div className="flex">
-      <DownloadButton />
-      <div className="flex flex-col items-end text-sm font-medium ml-3">
-        <p>
-          SMD{" "}
-          <span className="text-xs font-normal">(Sans Maison de Disque)</span>
-        </p>
-        <p>lamouralendroit@aol.com</p>
-        <p>0611766489</p>
+    <div>
+      <h1 className="text-3xl font-extrabold mb-6">L'AMOUR À L'ENDROIT</h1>
+      <div className="flex justify-between">
+        <DownloadButton />
+        <div className="flex flex-col items-end text-sm font-medium ml-3">
+          <p>
+            SMD{" "}
+            <span className="text-xs font-normal">(Sans Maison de Disque)</span>
+          </p>
+          <p>lamouralendroit@aol.com</p>
+          <p>0611766489</p>
+        </div>
       </div>
     </div>
     <p className="text-center my-3 text-xs">
