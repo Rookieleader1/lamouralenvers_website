@@ -10,7 +10,6 @@ import audio8 from "./8- L'ANNIV.mp3";
 import audio9 from "./9- DANSER.mp3";
 import audio10 from "./10- SANS NOTICE.mp3";
 import audio11 from "./11- LES CONTRE JOURS.mp3";
-import audio12 from "./12- SON.wav";
 
 export {
   audio0,
@@ -25,5 +24,4 @@ export {
   audio9,
   audio10,
   audio11,
-  audio12,
 };
