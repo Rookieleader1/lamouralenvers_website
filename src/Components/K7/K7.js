@@ -4,6 +4,27 @@ import "./animation.css";
 import { commands } from "../../globals";
 import useResizeObserver from "use-resize-observer";
 
+const Tape = ({ offsetLeft, progressPercent }) => (
+  <div
+    className="absolute flex justify-center items-center"
+    style={{
+      top: "45%",
+      left: offsetLeft,
+      height: 150,
+      width: 150,
+      transform: "translateY(-50%) translateX(-35%)",
+    }}
+  >
+    <div
+      className="bg-black rounded-full overflow-hidden "
+      style={{
+        height: `${progressPercent}%`,
+        width: `${progressPercent}%`,
+      }}
+    />
+  </div>
+);
+
 const Wheel = ({
   height,
   offsetTop,
@@ -12,51 +33,42 @@ const Wheel = ({
   command,
   name,
   progressPercent,
+  rotationOffset = 0,
 }) => {
-  const commandState = () => {
-    if (command === commands.play || command === commands.fastForward) {
-      return "running";
-    }
-    return "paused";
-  };
+  const commandState = () =>
+    command === commands.play || command === commands.fastForward
+      ? "running"
+      : "paused";
+
   if (!height || height === 0) return null;
+
   return (
     <>
+      <Tape offsetLeft={offsetLeft} progressPercent={progressPercent} />
       <div
-        className="absolute flex justify-center items-center"
         style={{
-          top: "45%",
+          transform: `rotate(${rotationOffset}deg)`,
+          top: offsetTop,
           left: offsetLeft,
-          height: 150,
-          width: 150,
-          transform: "translateY(-50%) translateX(-35%)",
+          position: "absolute",
         }}
       >
-        <div
-          className="bg-black rounded-full overflow-hidden "
+        <img
+          src={wheel}
+          alt={name}
+          id={name}
           style={{
-            height: `${progressPercent}%`,
-            width: `${progressPercent}%`,
+            objectFit: "contain",
+            height: height,
+
+            animationName: "spin",
+            animationDuration: `${rotationSpeed}s`,
+            animationIterationCount: "infinite",
+            animationTimingFunction: "linear",
+            animationPlayState: commandState(),
           }}
         />
       </div>
-      <img
-        src={wheel}
-        alt={name}
-        id={name}
-        style={{
-          objectFit: "contain",
-          height: height,
-          position: "absolute",
-          top: offsetTop,
-          left: offsetLeft,
-          animationName: "spin",
-          animationDuration: `${rotationSpeed}s`,
-          animationIterationCount: "infinite",
-          animationTimingFunction: "linear",
-          animationPlayState: commandState(),
-        }}
-      />
     </>
   );
 };
@@ -93,6 +105,7 @@ const Wheels = ({
       command={command}
       name="k7_wheel_right"
       progressPercent={progressPercent}
+      rotationOffset={90}
     />
   </div>
 );
