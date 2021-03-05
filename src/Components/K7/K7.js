@@ -133,7 +133,13 @@ const K7 = ({ command, progressPercent }) => {
   }, [tapeSpeed, command]);
 
   return (
-    <div style={{ width: "90%", maxWidth: 500 }} className="relative m-auto">
+    <div
+      style={{
+        width: "90%",
+        maxWidth: 500,
+      }}
+      className="relative m-auto"
+    >
       <Wheels
         k7Height={height}
         relativeHeight={relativeScale}
