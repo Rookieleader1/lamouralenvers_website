@@ -58,7 +58,6 @@ export const Controls = ({
   setPlaybackRate,
 }) => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState();
-
   useEffect(() => {
     setCurrentTrackIndex(
       findIndex(playlist, (o) => o.name === playingTrack.name)
@@ -71,7 +70,6 @@ export const Controls = ({
 
     switch (command) {
       case commands.play:
-        console.log("play");
         //if no track is currently playing, set the track to the first one
         if (!playingTrack) setPlayingTrack(playlist[0]);
         setPlaying(true);
@@ -87,6 +85,7 @@ export const Controls = ({
         break;
       case commands.fastForward:
         setPlaybackRate(6);
+        if (!playing) setPlaying(true);
         break;
       case commands.previousTrack: {
         // if current track is the first in playlist, we just restart it

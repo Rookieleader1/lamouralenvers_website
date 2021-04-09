@@ -20,6 +20,7 @@
     "react-scripts": "4.0.1",
     "tailwindcss": "^2.0.2",
     "use-resize-observer": "^7.0.0",
+    "use-sound": "^2.0.1",
     "web-vitals": "^0.2.4"
   },
   "scripts": {

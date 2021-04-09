@@ -20,6 +20,8 @@ const Tape = ({ offsetLeft, progressPercent }) => (
       style={{
         height: `${progressPercent}%`,
         width: `${progressPercent}%`,
+        minHeight: "70%",
+        minWidth: "70%",
       }}
     />
   </div>
@@ -95,7 +97,7 @@ const Wheels = ({
       rotationSpeed={rotationSpeed}
       command={command}
       name="k7_wheel_left"
-      progressPercent={100 - progressPercent}
+      progressPercent={100 - progressPercent / 3}
     />
     <Wheel
       height={relativeHeight}
@@ -104,7 +106,7 @@ const Wheels = ({
       rotationSpeed={rotationSpeed}
       command={command}
       name="k7_wheel_right"
-      progressPercent={progressPercent}
+      progressPercent={66.6 + progressPercent / 3}
       rotationOffset={90}
     />
   </div>

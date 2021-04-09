@@ -25,11 +25,13 @@ const Header = () => (
         <DownloadButton />
         <div className="flex flex-col items-end text-sm font-medium ml-3">
           <p>
-            SMD{" "}
-            <span className="text-xs font-normal">(Sans Maison de Disque)</span>
+            ERMD{" "}
+            <span className="text-xs font-normal">
+              (En RECHERCHE de Maison de Disque)
+            </span>
           </p>
           <p>lamouralendroit@aol.com</p>
-          <p>0611766489</p>
+          <p>James : 0611766489</p>
         </div>
       </div>
     </div>
@@ -74,13 +76,39 @@ const Footer = () => (
   </section>
 );
 
-const AudioPlayer = () => {
+const AudioPlayer = ({
+  playing,
+  playingTrack,
+  audioPlayerRef,
+  playbackRate,
+  command,
+  onEnded,
+}) => {
+  const [progressPercent, setProgressPercent] = useState(0);
+  return (
+    <>
+      <ReactPlayer
+        playing={playing}
+        url={playingTrack?.url}
+        ref={audioPlayerRef}
+        onError={(e) => console.error(e)}
+        playbackRate={playbackRate}
+        onProgress={(e) => setProgressPercent(e.played * 100)}
+        width={0}
+        height={0}
+        onEnded={onEnded}
+      />
+      <K7 command={command} progressPercent={progressPercent} />
+    </>
+  );
+};
+
+const AudioPlayerPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(true);
   const [playingTrack, setPlayingTrack] = useState(playlist[0]);
   const [command, setCommand] = useState(commands.stop);
   const [playing, setPlaying] = useState(false);
   const [playbackRate, setPlaybackRate] = useState(1);
-  const [progressPercent, setProgressPercent] = useState(0);
   const audioPlayerRef = useRef(undefined);
 
   return (
@@ -91,17 +119,14 @@ const AudioPlayer = () => {
         onClickCb={() => setCommand(commands.play)}
       />
       <Header />
-      <ReactPlayer
-        playing={playing}
-        url={playingTrack?.url}
-        ref={audioPlayerRef}
-        onError={(e) => console.error(e)}
+      <AudioPlayer
+        playingTrack={playingTrack}
+        command={command}
         playbackRate={playbackRate}
-        onProgress={(e) => setProgressPercent(e.played * 100)}
-        width={0}
-        height={0}
+        audioPlayerRef={audioPlayerRef}
+        playing={playing}
+        onEnded={() => setCommand(commands.nextTrack)}
       />
-      <K7 command={command} progressPercent={progressPercent} />
       <Controls
         setPlaying={setPlaying}
         setPlayingTrack={setPlayingTrack}
@@ -118,4 +143,4 @@ const AudioPlayer = () => {
   );
 };
 
-export default AudioPlayer;
+export default AudioPlayerPage;
