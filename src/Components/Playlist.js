@@ -1,7 +1,21 @@
 import { commands, playlist } from "../globals";
 import playerBgImage from "../assets/img/playlist_bg.png";
+import { AudioFxButtonWrapper } from "./AudioFxButtonWrapper";
+import { trackSelect } from "../assets/audio/FX";
 
 const trackBgColor = "rgba(105, 132, 64, 0.3)";
+
+const TrackSelector = ({ name, playing, trackIndex, handleClick }) => (
+  <button
+    className={`w-full mb-1 pl-3 last:mb-0 text-left ${
+      playing ? "text-red-600" : ""
+    }`}
+    style={{ background: trackBgColor }}
+    onClick={handleClick}
+  >
+    {`${trackIndex}/ ${name}`}
+  </button>
+);
 
 const Track = ({
   track,
@@ -18,15 +32,17 @@ const Track = ({
   };
 
   return (
-    <button
-      className={`w-full mb-1 pl-3 last:mb-0 text-left ${
-        isPlaying ? "text-red-600" : ""
-      }`}
-      style={{ background: trackBgColor }}
+    <AudioFxButtonWrapper
+      isOn={isPlaying}
       onClick={handleClick}
+      soundEffect={trackSelect}
     >
-      {`${trackIndex}/ ${track.name}`}
-    </button>
+      <TrackSelector
+        playing={isPlaying}
+        trackIndex={trackIndex}
+        name={track.name}
+      />
+    </AudioFxButtonWrapper>
   );
 };
 

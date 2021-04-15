@@ -1,78 +1,54 @@
-import { useEffect, useRef, useState } from "react";
-import ReactPlayer from "react-player";
-import { tapeFF, tapePause, tapePlay, tapeStop } from "../../assets/audio/FX";
+import { tapeFF, tapePlay, tapeStop } from "../../assets/audio/FX";
 import {
-  playON,
+  ffOFF,
+  ffON,
+  nextOFF,
+  nextON,
   playOFF,
+  playON,
+  previousOFF,
+  previousON,
   stopOFF,
   stopON,
-  ffON,
-  ffOFF,
-  previousON,
-  previousOFF,
-  nextON,
-  nextOFF,
 } from "../../assets/img/buttons";
+import * as React from "react";
+import { AudioFxButtonWrapper } from "../AudioFxButtonWrapper";
 
-const FancyBtn = ({ onClick, isOn, soundEffect, alt, onSkin, offSkin }) => {
-  const [audioFxPlaying, setAudioFxPlaying] = useState(false);
-  const audioRef = useRef(undefined);
-
-  const handleClick = async () => {
-    setAudioFxPlaying(true);
-    onClick();
-  };
-
-  useEffect(() => {
-    //when another button is not pressed, audio should not stop
-    if (!isOn) {
-      setAudioFxPlaying(false);
-    }
-  }, [isOn]);
-
-  const resetAudio = () => {
-    // we stop the playing and reset play head to start of file
-    if (audioRef?.current) {
-      setAudioFxPlaying(false);
-      audioRef?.current?.seekTo(0);
-    }
-  };
-
+const DefaultTransportButton = ({
+  alt,
+  disabled,
+  offSkin,
+  onSkin,
+  handleClick,
+}) => {
   return (
-    <>
-      <ReactPlayer
-        ref={audioRef}
-        url={soundEffect}
-        playing={audioFxPlaying}
-        onPause={resetAudio}
-        onEnded={resetAudio}
-        onError={(e) => console.error(e)}
-        width={0}
-        height={0}
-      />
-      <button
-        disabled={isOn}
-        className="flex-1 cursor-pointer"
-        style={{
-          maxWidth: 80,
-          filter: isOn ? "" : "drop-shadow(0 3px 0.3rem rgb(136, 136, 136)",
-        }}
-        onClick={handleClick}
-      >
-        <img src={isOn ? onSkin : offSkin} alt={alt} />
-      </button>
-    </>
+    <button
+      disabled={disabled}
+      className="flex-1 cursor-pointer"
+      style={{
+        maxWidth: 80,
+        filter: disabled ? "" : "drop-shadow(0 3px 0.3rem rgb(136, 136, 136)",
+      }}
+      onClick={handleClick}
+    >
+      <img src={disabled ? onSkin : offSkin} alt={alt} />
+    </button>
   );
 };
+
 export const PlayBtn = ({ handleClick, isOn }) => (
-  <FancyBtn
+  <AudioFxButtonWrapper
     onClick={handleClick}
     isOn={isOn}
-    onSkin={playON}
-    offSkin={playOFF}
     soundEffect={tapePlay}
-    alt="play button"
-  />
+  >
+    <DefaultTransportButton
+      disabled={isOn}
+      onSkin={playON}
+      offSkin={playOFF}
+      alt="play button"
+    />
+  </AudioFxButtonWrapper>
 );
 // export const PauseBtn = ({ handleClick, isOn }) => (
 //   <FancyBtn
@@ -83,42 +59,54 @@ export const PlayBtn = ({ handleClick, isOn }) => (
 //   />
 // );
 export const StopBtn = ({ handleClick, isOn }) => (
-  <FancyBtn
+  <AudioFxButtonWrapper
     onClick={handleClick}
     isOn={isOn}
     soundEffect={tapeStop}
-    alt="stop button"
-    onSkin={stopON}
-    offSkin={stopOFF}
-  />
+  >
+    <DefaultTransportButton
+      disabled={isOn}
+      onSkin={stopON}
+      offSkin={stopOFF}
+      alt="stop button"
+    />
+  </AudioFxButtonWrapper>
 );
 export const FastForwardBtn = ({ handleClick, isOn }) => (
-  <FancyBtn
-    onClick={handleClick}
-    soundEffect={tapeFF}
-    isOn={isOn}
-    alt="fast forward button"
-    onSkin={ffON}
-    offSkin={ffOFF}
-  />
+  <AudioFxButtonWrapper onClick={handleClick} soundEffect={tapeFF} isOn={isOn}>
+    <DefaultTransportButton
+      disabled={isOn}
+      onSkin={ffON}
+      offSkin={ffOFF}
+      alt="fast forward button"
+    />
+  </AudioFxButtonWrapper>
 );
 export const PreviousTrackBtn = ({ handleClick, isOn }) => (
-  <FancyBtn
+  <AudioFxButtonWrapper
     onClick={handleClick}
     soundEffect={tapePlay}
     isOn={isOn}
-    alt="previous track button"
-    onSkin={previousON}
-    offSkin={previousOFF}
-  />
+  >
+    <DefaultTransportButton
+      disabled={isOn}
+      onSkin={previousON}
+      offSkin={previousOFF}
+      alt="previous track button"
+    />
+  </AudioFxButtonWrapper>
 );
 export const NextTrackBtn = ({ handleClick, isOn }) => (
-  <FancyBtn
+  <AudioFxButtonWrapper
     onClick={handleClick}
     soundEffect={tapePlay}
     isOn={isOn}
-    alt="next track button"
-    onSkin={nextON}
-    offSkin={nextOFF}
-  />
+  >
+    <DefaultTransportButton
+      disabled={isOn}
+      onSkin={nextON}
+      offSkin={nextOFF}
+      alt="next track button"
+    />
+  </AudioFxButtonWrapper>
 );
