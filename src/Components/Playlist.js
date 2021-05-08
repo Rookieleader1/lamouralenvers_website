@@ -36,6 +36,7 @@ const Track = ({
       isOn={isPlaying}
       onClick={handleClick}
       soundEffect={trackSelect}
+      volume={0.2}
     >
       <TrackSelector
         playing={isPlaying}

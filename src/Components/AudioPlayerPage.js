@@ -69,7 +69,7 @@ const Footer = () => (
       un Raiders ...
     </p>
     <div className="mt-6 hover:bg-blue-300 rounded p-1">
-      <a href="https://www.youtube.com/c/JAMESDELLECKAMOUR">
+      <a href="https://www.youtube.com/c/JAMESDELLECKAMOUR" target="_blank">
         Pour en savoir plus sur l'artiste, c'est par ici
       </a>
     </div>

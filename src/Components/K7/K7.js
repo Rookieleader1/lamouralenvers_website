@@ -90,6 +90,20 @@ const Wheels = ({
       width: "100%",
     }}
   >
+    <div
+      style={{
+        height: "40%",
+        width: "30%",
+        margin: 0,
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        // -ms-transform: translate(-50%, -50%),
+        transform: "translate(-50%, -50%)",
+        background: "#959493",
+      }}
+    />
+
     <Wheel
       height={relativeHeight}
       offsetLeft="23.5%"
@@ -159,6 +173,7 @@ const K7 = ({ command, progressPercent }) => {
           maxWidth: "100%",
           position: "relative",
           zIndex: 10,
+          // visibility: "hidden",
         }}
       />
     </div>

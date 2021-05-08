@@ -6,9 +6,10 @@ export const AudioFxButtonWrapper = ({
   onClick,
   isOn,
   soundEffect,
+  volume = 1,
   ...props
 }) => {
-  const [play, { stop }] = useSound(soundEffect);
+  const [play, { stop }] = useSound(soundEffect, { volume: volume });
 
   useEffect(() => {
     if (!isOn) stop();
